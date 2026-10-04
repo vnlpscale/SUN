@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Preserve pinned publisher snapshots byte-for-byte, including original whitespace.
+docs/evidence/* -text -whitespace

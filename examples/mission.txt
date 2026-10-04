@@ -1,0 +1,9 @@
+SUN mission notes
+
+SUN keeps the active model prompt bounded while indexing a larger external text corpus.
+The prototype uses SQLite FTS5 and deduplicated chunks with source provenance.
+The design is inspired by SinkRec's separation of recurring memory and current transitions.
+SUN does not implement learned residual vector quantization or TDGD inside a model.
+The 1T logical corpus goal has not been validated for capacity, latency, recall, or answer quality.
+The two requested SpeedX models explicitly set native_1T_context=false in their configs.
+File writes need the operator's approval. No arbitrary shell tool exists.

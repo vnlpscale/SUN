@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.sun/
+.env
+.env.*
+*.zip
+*.log
