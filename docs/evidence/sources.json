@@ -1,0 +1,338 @@
+{
+  "retrieved_at_utc": "2026-10-04T01:09:02.732649+00:00",
+  "method": "Read-only HTTPS fetch of public metadata capped at 100,000 bytes per file. No model weights downloaded and no remote code executed. SHA pins resolved via Hugging Face public model API.",
+  "paper": {
+    "url": "https://arxiv.org/html/2606.09888v1",
+    "abstract_url": "https://arxiv.org/abs/2606.09888",
+    "version": "v1",
+    "status": "primary HTML read through web tool",
+    "title": "SinkRec: Mitigating Semantic State Sink in Long Sequence Recommendation with Memory-Conditioned Gated Delta Networks"
+  },
+  "publisher_vs_tested": {
+    "publisher_claims": "All architecture, speed and context claims in source files are publisher claims. Configs explicitly mark native_1T_context=false.",
+    "locally_verified": "Public metadata accessibility, content, SHA pins and source hashes only.",
+    "locally_tested": "No model inference, throughput, recall quality or context-length benchmark was run during evidence collection."
+  },
+  "models": [
+    {
+      "id": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "api_url": "https://huggingface.co/api/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "publisher_context_metadata": {
+        "schema_version": 3,
+        "architecture": "GDN64_streaming_hierarchical_memory",
+        "context_mode": "logical_streaming_recurrent",
+        "logical_context_length": 1000000000000,
+        "native_trained_context_length": 262144,
+        "validated_context_length": 262144,
+        "streaming_prefill": true,
+        "default_chunk_size": 8192,
+        "position_counter_bits": 64,
+        "recurrent_state": true,
+        "persistent_recurrent_state": true,
+        "state_checkpointing": true,
+        "hierarchical_memory": true,
+        "memory_levels": {
+          "L0_active_tokens": {
+            "type": "exact_tokens",
+            "recommended_tokens": 32768
+          },
+          "L1_recurrent_state": {
+            "type": "gated_deltanet_state",
+            "persistent": true
+          },
+          "L2_chunk_memory": {
+            "type": "compressed_chunk_memory",
+            "recommended_chunk_tokens": 8192
+          },
+          "L3_semantic_memory": {
+            "type": "retrieval_memory",
+            "enabled": true
+          },
+          "L4_archive": {
+            "type": "persistent_external_memory",
+            "enabled": true
+          }
+        },
+        "claim_level": "experimental_1T_logical_context",
+        "native_1T_context": false,
+        "notes": "1T denotes logical/streaming addressable context. It does not mean the checkpoint was trained with a single one-trillion-token dense attention sequence."
+      },
+      "publisher_template_metadata": {
+        "tokenizer_class": "Qwen2Tokenizer",
+        "model_max_length": 1000000000000,
+        "embedded_template_present": true,
+        "separate_template_present": true,
+        "template_mentions_xml_tool_calls": true,
+        "template_mentions_enable_thinking": true,
+        "template_mentions_reasoning_effort": true,
+        "structured_api_tool_calls_tested": false
+      },
+      "publisher_displayed_benchmark_max_input_tokens": 262144,
+      "local_model_inference_tested": false
+    },
+    {
+      "id": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "api_url": "https://huggingface.co/api/models/j-llm/Qwen3.5-2B-SpeedX",
+      "publisher_context_metadata": {
+        "schema_version": 3,
+        "architecture": "GDN24_streaming_hierarchical_memory",
+        "context_mode": "logical_streaming_recurrent",
+        "logical_context_length": 1000000000000,
+        "native_trained_context_length": 262144,
+        "validated_context_length": 262144,
+        "streaming_prefill": true,
+        "default_chunk_size": 8192,
+        "position_counter_bits": 64,
+        "recurrent_state": true,
+        "persistent_recurrent_state": true,
+        "state_checkpointing": true,
+        "hierarchical_memory": true,
+        "memory_levels": {
+          "L0_active_tokens": {
+            "type": "exact_tokens",
+            "recommended_tokens": 32768
+          },
+          "L1_recurrent_state": {
+            "type": "gated_deltanet_state",
+            "persistent": true
+          },
+          "L2_chunk_memory": {
+            "type": "compressed_chunk_memory",
+            "recommended_chunk_tokens": 8192
+          },
+          "L3_semantic_memory": {
+            "type": "retrieval_memory",
+            "enabled": true
+          },
+          "L4_archive": {
+            "type": "persistent_external_memory",
+            "enabled": true
+          }
+        },
+        "claim_level": "experimental_1T_logical_context",
+        "native_1T_context": false,
+        "notes": "1T denotes logical/streaming addressable context. It does not mean the checkpoint was trained with a single one-trillion-token dense attention sequence."
+      },
+      "publisher_template_metadata": {
+        "tokenizer_class": "Qwen2Tokenizer",
+        "model_max_length": 1000000000000,
+        "embedded_template_present": false,
+        "separate_template_present": true,
+        "template_mentions_xml_tool_calls": true,
+        "template_mentions_enable_thinking": true,
+        "template_mentions_reasoning_effort": false,
+        "structured_api_tool_calls_tested": false
+      },
+      "publisher_displayed_benchmark_max_input_tokens": 16384,
+      "local_model_inference_tested": false
+    }
+  ],
+  "files": [
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "source_file": "README.md",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/README.md",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/064d702bc63e20042d00f3308f01509f99a8879f/README.md?%2FsummerMC%2FQwen3.8-27B-SpeedX27-VL-GDN64%2Fresolve%2F064d702bc63e20042d00f3308f01509f99a8879f%2FREADME.md=&etag=%225c580701ad27d2883815d9d4c24e76b0b84c6359%22",
+      "retrieved_at_utc": "2026-10-04T01:09:01.677332+00:00",
+      "source_bytes": 2688,
+      "source_sha256": "012f61db1739c57bcfc6f3a74c05f6ceea19198639204fc0feb747a8f35fe647",
+      "saved_file": "speedx27-README.md",
+      "saved_bytes": 2688,
+      "saved_sha256": "012f61db1739c57bcfc6f3a74c05f6ceea19198639204fc0feb747a8f35fe647",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "source_file": "config.json",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/064d702bc63e20042d00f3308f01509f99a8879f/config.json?%2FsummerMC%2FQwen3.8-27B-SpeedX27-VL-GDN64%2Fresolve%2F064d702bc63e20042d00f3308f01509f99a8879f%2Fconfig.json=&etag=%2229faf6e991dec184be620037c646eb65833f9849%22",
+      "retrieved_at_utc": "2026-10-04T01:09:01.678344+00:00",
+      "source_bytes": 5296,
+      "source_sha256": "a643a943b0d3a62346eff7c46773706e3618db6fe8dac497b642d0694abd36ff",
+      "saved_file": "speedx27-config.json",
+      "saved_bytes": 5296,
+      "saved_sha256": "a643a943b0d3a62346eff7c46773706e3618db6fe8dac497b642d0694abd36ff",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "source_file": "generation_config.json",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/generation_config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/064d702bc63e20042d00f3308f01509f99a8879f/generation_config.json?%2FsummerMC%2FQwen3.8-27B-SpeedX27-VL-GDN64%2Fresolve%2F064d702bc63e20042d00f3308f01509f99a8879f%2Fgeneration_config.json=&etag=%22023756cfadf88e5bf69eefeee3e172f38c448d64%22",
+      "retrieved_at_utc": "2026-10-04T01:09:01.678344+00:00",
+      "source_bytes": 202,
+      "source_sha256": "e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e",
+      "saved_file": "speedx27-generation_config.json",
+      "saved_bytes": 202,
+      "saved_sha256": "e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "source_file": "speedx_advanced_config.json",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/speedx_advanced_config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/064d702bc63e20042d00f3308f01509f99a8879f/speedx_advanced_config.json?%2FsummerMC%2FQwen3.8-27B-SpeedX27-VL-GDN64%2Fresolve%2F064d702bc63e20042d00f3308f01509f99a8879f%2Fspeedx_advanced_config.json=&etag=%22a1e07651cc6d34f51934218bce1d8a19930647f3%22",
+      "retrieved_at_utc": "2026-10-04T01:09:01.678344+00:00",
+      "source_bytes": 780,
+      "source_sha256": "ed77ad72a7e657c17719ef2ab93808b11f9871a2b7c3dec1acdc023b10746a2e",
+      "saved_file": "speedx27-speedx_advanced_config.json",
+      "saved_bytes": 780,
+      "saved_sha256": "ed77ad72a7e657c17719ef2ab93808b11f9871a2b7c3dec1acdc023b10746a2e",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "source_file": "tokenizer_config.json",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/tokenizer_config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/064d702bc63e20042d00f3308f01509f99a8879f/tokenizer_config.json?%2FsummerMC%2FQwen3.8-27B-SpeedX27-VL-GDN64%2Fresolve%2F064d702bc63e20042d00f3308f01509f99a8879f%2Ftokenizer_config.json=&etag=%228f618b1545dd615e47acd5ba0604d6dd830140db%22",
+      "retrieved_at_utc": "2026-10-04T01:09:01.679341+00:00",
+      "source_bytes": 16365,
+      "source_sha256": "d3c7574ba7cf1d904a2765dfcb8128aac73b6fbf8a3bb01c72cff95a7c8e8344",
+      "saved_file": "speedx27-tokenizer-metadata.json",
+      "saved_bytes": 9682,
+      "saved_sha256": "c01f2abc1e0e787954b645a53d75ae5b2e1f2393cbedd8af6d99754788c14fc3",
+      "exact_source_copy": false,
+      "status": "retrieved"
+    },
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "source_file": "chat_template.jinja",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/chat_template.jinja",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/064d702bc63e20042d00f3308f01509f99a8879f/chat_template.jinja?%2FsummerMC%2FQwen3.8-27B-SpeedX27-VL-GDN64%2Fresolve%2F064d702bc63e20042d00f3308f01509f99a8879f%2Fchat_template.jinja=&etag=%22c0c686f9c38d70d179fb7b5f5aa7530bc913dda3%22",
+      "retrieved_at_utc": "2026-10-04T01:09:01.679341+00:00",
+      "source_bytes": 8952,
+      "source_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+      "saved_file": "speedx27-chat_template.jinja",
+      "saved_bytes": 8952,
+      "saved_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "source_file": "README.md",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/README.md",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/j-llm/Qwen3.5-2B-SpeedX/898730fd0900f70f1eccfc864d5136ce0e3b94b4/README.md?%2Fj-llm%2FQwen3.5-2B-SpeedX%2Fresolve%2F898730fd0900f70f1eccfc864d5136ce0e3b94b4%2FREADME.md=&etag=%22bd29f414a469ccd8f961b1c9e87f0189668b8e96%22",
+      "retrieved_at_utc": "2026-10-04T01:09:02.167466+00:00",
+      "source_bytes": 8700,
+      "source_sha256": "11c1f41ad7e70a2aef408053ef81b60961978b0cb43195c28e9a0bd45528fc4f",
+      "saved_file": "speedx2b-README.md",
+      "saved_bytes": 8700,
+      "saved_sha256": "11c1f41ad7e70a2aef408053ef81b60961978b0cb43195c28e9a0bd45528fc4f",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "source_file": "config.json",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/j-llm/Qwen3.5-2B-SpeedX/898730fd0900f70f1eccfc864d5136ce0e3b94b4/config.json?%2Fj-llm%2FQwen3.5-2B-SpeedX%2Fresolve%2F898730fd0900f70f1eccfc864d5136ce0e3b94b4%2Fconfig.json=&etag=%229bbfcb94d26b25024181051bedb3606e597bf7e1%22",
+      "retrieved_at_utc": "2026-10-04T01:09:02.188238+00:00",
+      "source_bytes": 4052,
+      "source_sha256": "612b9b9a6440df8d9c9e36c8b3ed9dac37bda954b43b7c2734a50c67a51d9b80",
+      "saved_file": "speedx2b-config.json",
+      "saved_bytes": 4052,
+      "saved_sha256": "612b9b9a6440df8d9c9e36c8b3ed9dac37bda954b43b7c2734a50c67a51d9b80",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "source_file": "generation_config.json",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/generation_config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/j-llm/Qwen3.5-2B-SpeedX/898730fd0900f70f1eccfc864d5136ce0e3b94b4/generation_config.json?%2Fj-llm%2FQwen3.5-2B-SpeedX%2Fresolve%2F898730fd0900f70f1eccfc864d5136ce0e3b94b4%2Fgeneration_config.json=&etag=%22bdc24581a68c26f7d7d7c14c95ec71354c085f28%22",
+      "retrieved_at_utc": "2026-10-04T01:09:02.204309+00:00",
+      "source_bytes": 184,
+      "source_sha256": "b06e86518ded068bc4e94d25fc3c3779a310e6adcc19c9da4e69e3e6efd9851a",
+      "saved_file": "speedx2b-generation_config.json",
+      "saved_bytes": 184,
+      "saved_sha256": "b06e86518ded068bc4e94d25fc3c3779a310e6adcc19c9da4e69e3e6efd9851a",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "source_file": "speedx_advanced_config.json",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/speedx_advanced_config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/j-llm/Qwen3.5-2B-SpeedX/898730fd0900f70f1eccfc864d5136ce0e3b94b4/speedx_advanced_config.json?%2Fj-llm%2FQwen3.5-2B-SpeedX%2Fresolve%2F898730fd0900f70f1eccfc864d5136ce0e3b94b4%2Fspeedx_advanced_config.json=&etag=%22acb7237bc4ba5f4fda308c67709c75ac4fc3bcb6%22",
+      "retrieved_at_utc": "2026-10-04T01:09:02.204309+00:00",
+      "source_bytes": 776,
+      "source_sha256": "ec32da767d5641658aa0351d3006ffde4658cb473d60ab840fabfa57ec1785b8",
+      "saved_file": "speedx2b-speedx_advanced_config.json",
+      "saved_bytes": 776,
+      "saved_sha256": "ec32da767d5641658aa0351d3006ffde4658cb473d60ab840fabfa57ec1785b8",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "source_file": "tokenizer_config.json",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/tokenizer_config.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/j-llm/Qwen3.5-2B-SpeedX/898730fd0900f70f1eccfc864d5136ce0e3b94b4/tokenizer_config.json?%2Fj-llm%2FQwen3.5-2B-SpeedX%2Fresolve%2F898730fd0900f70f1eccfc864d5136ce0e3b94b4%2Ftokenizer_config.json=&etag=%22b435ea72ed554011e28c0a914e6755978150f88d%22",
+      "retrieved_at_utc": "2026-10-04T01:09:02.338454+00:00",
+      "source_bytes": 1132,
+      "source_sha256": "51ecd0c4cd6874b08fa628298fe9a4ffefab1ef18a665d3ade71d40ed28a8657",
+      "saved_file": "speedx2b-tokenizer-metadata.json",
+      "saved_bytes": 442,
+      "saved_sha256": "2033ab6ecd96fcbfb5d6578804f187a2b08db159b77ae95b1cd26cc73e42390c",
+      "exact_source_copy": false,
+      "status": "retrieved"
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "source_file": "chat_template.jinja",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/chat_template.jinja",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/models/j-llm/Qwen3.5-2B-SpeedX/898730fd0900f70f1eccfc864d5136ce0e3b94b4/chat_template.jinja?%2Fj-llm%2FQwen3.5-2B-SpeedX%2Fresolve%2F898730fd0900f70f1eccfc864d5136ce0e3b94b4%2Fchat_template.jinja=&etag=%220ef09f214eaa6d9bca297988afc1454b5827b2c7%22",
+      "retrieved_at_utc": "2026-10-04T01:09:02.354439+00:00",
+      "source_bytes": 7755,
+      "source_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+      "saved_file": "speedx2b-chat_template.jinja",
+      "saved_bytes": 7755,
+      "saved_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+      "exact_source_copy": true,
+      "status": "retrieved"
+    }
+  ],
+  "runtime_inspections": [
+    {
+      "model": "summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64",
+      "revision": "064d702bc63e20042d00f3308f01509f99a8879f",
+      "url": "https://huggingface.co/summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64/resolve/064d702bc63e20042d00f3308f01509f99a8879f/speedx_1t_runtime.py",
+      "retrieved_at_utc": "2026-10-04T01:12:05.599819+00:00",
+      "source_bytes": 5292,
+      "source_sha256": "a6cc3e5513b0dd9b319d355439a6e7894551ff717bd10ae8659c48d4ade4930e",
+      "source_saved": false,
+      "executed": false,
+      "inspection_result": "Chunk-prefill wrapper carrying past_key_values, absolute position and checkpoint callback; no implemented retrieval index, chunk summarizer, archive database or restore method."
+    },
+    {
+      "model": "j-llm/Qwen3.5-2B-SpeedX",
+      "revision": "898730fd0900f70f1eccfc864d5136ce0e3b94b4",
+      "url": "https://huggingface.co/j-llm/Qwen3.5-2B-SpeedX/resolve/898730fd0900f70f1eccfc864d5136ce0e3b94b4/speedx_1t_runtime.py",
+      "retrieved_at_utc": "2026-10-04T01:12:05.600825+00:00",
+      "source_bytes": 5290,
+      "source_sha256": "8cb4b62a850c34bc389de55fb26d33962d383ac7d9f4c778d50f5bd9e0b49195",
+      "source_saved": false,
+      "executed": false,
+      "inspection_result": "Chunk-prefill wrapper carrying past_key_values, absolute position and checkpoint callback; no implemented retrieval index, chunk summarizer, archive database or restore method."
+    }
+  ]
+}

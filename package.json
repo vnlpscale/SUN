@@ -1,0 +1,17 @@
+{
+  "name": "sun-harness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A bounded AI task harness with a persistent external memory and terminal UI",
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "bin": { "sun": "dist/src/cli.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node --disable-warning=ExperimentalWarning dist/src/cli.js",
+    "demo": "node --disable-warning=ExperimentalWarning dist/src/cli.js --demo",
+    "test": "npm run build && node --disable-warning=ExperimentalWarning --test dist/test/*.test.js",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": { "@types/node": "^24.0.0", "typescript": "^5.9.0" }
+}

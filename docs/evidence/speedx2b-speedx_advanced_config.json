@@ -1,0 +1,31 @@
+{
+  "name": "Qwen3.5-2B-SpeedX-GDN24-1T",
+  "version": "3.0",
+  "base_model": "summerMC/Qwen3.5-2B-SpeedX",
+  "architecture": {
+    "language_backbone": "Qwen3.5-2B",
+    "token_mixer": "Gated DeltaNet",
+    "gdn_layers": 24,
+    "streaming": true
+  },
+  "context": {
+    "logical_tokens": 1000000000000,
+    "native_tokens": 262144,
+    "mode": "recurrent_hierarchical"
+  },
+  "memory_architecture": {
+    "active_window": 32768,
+    "recurrent_memory": "GDN24",
+    "chunk_memory": true,
+    "semantic_retrieval": true,
+    "persistent_archive": true
+  },
+  "capabilities": {
+    "streaming_prefill": true,
+    "state_checkpointing": true,
+    "resumable_context": true,
+    "hierarchical_memory_ready": true,
+    "external_memory_ready": true
+  },
+  "experimental": true
+}
