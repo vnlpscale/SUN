@@ -1,22 +1,54 @@
 # SUN
 
-A TypeScript AI harness with a streaming terminal interface, resumable sessions, bounded workspace tools, and persistent indexed text memory.
+```text
+                 \  |  /
+                  .---.
+              --- (   ) ---
+                  '---'
+                 /  |  \
 
-**1T is an experimental logical corpus goal, not a native model context window or a demonstrated capacity.** Every request uses a bounded active window. No trillion-token ingestion, latency, recall, or model-quality claim has been tested.
+       ____    _   _   _   _
+      / ___|  | | | | | \ | |
+      \___ \  | | | | |  \| |
+       ___) | | |_| | | |\  |
+      |____/   \___/  |_| \_|
 
-## Try it
+    A focused window. A persistent archive.
+```
 
-Requires **Node.js 22.13+; Node 24 recommended** with built-in SQLite/FTS5. No runtime packages or model downloads are required.
+**An AI harness for your terminal.** Stream replies, resume tasks, retrieve evidence, and review workspace edits before they happen.
+
+`TypeScript` / `Node.js` / `OpenAI-compatible API` / `SQLite FTS5`
+
+[Quickstart](#quickstart) · [Terminal](#terminal) · [Connect](#connect) · [Models](#models) · [Architecture](#architecture) · [Boundaries](#boundaries)
+
+> **The 1T goal is external indexed memory.** It is an experimental logical corpus target, not a demonstrated capacity or native model context window.
+
+## Quickstart
+
+From a source checkout, use **Node.js 22.13+**; Node 24 is recommended.
 
 ```powershell
 npm ci --ignore-scripts
-npm test
+npm run build
 npm run demo
 ```
 
-Source releases include compiled `dist/`, so `npm run demo` also works without installing build dependencies. The demo is deterministic software output, not model inference.
+The offline demo needs no model, credentials, runtime packages, or network access. It simulates streaming and the task loop; its replies are deterministic. The source ZIP also includes compiled `dist/`, so it can run `npm run demo` immediately.
 
-Inside SUN:
+## What you get
+
+| Feature | In practice |
+| --- | --- |
+| Terminal UI | Amber branding, preserved scrollback, streaming replies, history, multiline input and cancellation. |
+| Resumable work | Saved sessions and a bounded task/tool loop; six steps by default. |
+| External memory | Indexed text chunks, content deduplication, source provenance and diverse lexical retrieval. |
+| Deliberate tools | Workspace reads and exact-content write approval; tools start disabled. |
+| Grounded presets | Exact model IDs, pinned metadata and conservative operational caps. |
+
+## Terminal
+
+Try this inside the demo:
 
 ```text
 /ingest examples/mission.txt
@@ -24,60 +56,93 @@ Inside SUN:
 /tools on
 /task Explain the SUN mission
 /status
-/sessions
-/quit
 ```
 
-The amber UI preserves terminal scrollback, streams answers, shows recalled sources and tool progress, supports history arrows and multiline input with a trailing backslash, and cancels a running turn with Ctrl+C. Piped input and redirected output use a plain line interface. Run `/help` for all commands; `/resume <full-id>` restores a saved session. `.sun/` stores local SQLite memory and recent session transcripts. Treat these as private user data.
+| Command | Purpose |
+| --- | --- |
+| `/task <goal>` | Run a bounded task; ordinary messages use the same loop. |
+| `/ingest <file>` | Index one UTF-8 workspace file; re-ingestion replaces its source snapshot. |
+| `/memory <query>` | Inspect recalled passages and sources. |
+| `/status` | Inspect model evidence, active budget and indexed corpus statistics. |
+| `/model [preset]` | List or select `speedx27`, `speedx2`, or `custom`. |
+| `/tools [on\|off]` | Opt into structured API tools for a compatible backend. |
+| `/new` · `/sessions` · `/resume <id>` | Start, list or restore sessions; external memory persists. |
+| `/help` · `/quit` | Show help or exit. |
 
-## Connect your model server
+Use **↑/↓** for history, a trailing **backslash** for multiline input, **Ctrl+C** to cancel, and **Ctrl+D** to exit. Piped input uses a plain interface and denies file writes. Local `.sun/` memory and transcripts are private user data.
 
-Start a compatible server separately. SUN connects to an OpenAI-compatible `/v1/chat/completions` API; **this project does not install, download or serve the models**. The requested architectures use custom model code, so compatibility with any particular inference server must be validated by its operator.
+## Connect
+
+Start a compatible model server separately, then connect to its Chat Completions endpoint:
 
 ```powershell
 npm start -- --preset speedx27 --endpoint http://127.0.0.1:8000/v1
 npm start -- --preset speedx2 --endpoint http://127.0.0.1:8000/v1
 ```
 
-Set `SUN_API_KEY` through your environment if your endpoint requires authentication. Keys are never accepted in command-line options or printed. Remote endpoints use HTTPS. SUN makes no network calls in `--demo` mode. A user-selected remote endpoint may incur provider charges; no paid endpoint was used in project verification.
+SUN does not download or serve models. These checkpoints use custom architectures; the operator must validate backend compatibility. Remote endpoints require HTTPS. Set `SUN_API_KEY` in your environment if authentication is needed; keys are not accepted as CLI options or printed. A selected remote provider may charge for requests.
 
 ```powershell
-# A server alias or a related model needs explicit custom configuration.
+# Related models or server aliases need explicit configuration.
 npm start -- --preset custom --model served-alias --context 8192
-# One-shot mode streams text and denies file writes because there is no approval UI.
+
+# One-shot output; file writes remain denied.
 npm start -- --demo --prompt "Explain SUN"
 ```
 
-Options: `--demo`, `--preset`, `--model`, `--endpoint`, `--context`, `--output`, `--steps`, `--workspace`, `--tools`, `--prompt`, `--help`. Environment equivalents are `SUN_ENDPOINT`, `SUN_PRESET`, `SUN_MODEL`, `SUN_CONTEXT`, `SUN_OUTPUT`, and `SUN_API_KEY`.
+Native tools require `/tools on` or `--tools`. Template tool syntax alone does not verify a server's structured-call parser. Changing presets disables tools again.
 
-## Model presets and evidence
+Run `npm start -- --help` for all options. Supported flags are `--demo`, `--preset`, `--model`, `--endpoint`, `--context`, `--output`, `--steps`, `--workspace`, `--tools`, `--prompt`, and `--help`. Environment settings are `SUN_ENDPOINT`, `SUN_PRESET`, `SUN_MODEL`, `SUN_CONTEXT`, `SUN_OUTPUT`, and `SUN_API_KEY`.
 
-| Preset | Exact requested model | Operational cap | Capability boundary |
+## Models
+
+| Preset | Exact model ID | Operational cap | Evidence boundary |
 | --- | --- | ---: | --- |
-| `speedx27` | `summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64` | 262,144 | Publisher config and prefill/one-token decode benchmark; recall and actual serving untested. Model includes vision; SUN currently sends text only. |
-| `speedx2` | `j-llm/Qwen3.5-2B-SpeedX` | 16,384 | Conservative boundary from displayed benchmark. Config claims 262,144 validation; performance/quality above 16K remains untested here. Text only. |
-| `custom` | Operator-specified ID | Unknown; harness ceiling 262,144 | Operator must validate the served model's actual context and capabilities. |
+| `speedx27` | `summerMC/Qwen3.8-27B-SpeedX27-VL-GDN64` | 262,144 | Publisher config and prefill plus one-token decode benchmark; recall untested. |
+| `speedx2` | `j-llm/Qwen3.5-2B-SpeedX` | 16,384 | Conservative displayed benchmark boundary; config claims 262,144 validation. |
+| `custom` | Operator-specified | Unknown | Harness ceiling is 262,144; verify the served model's actual limit. |
 
-Both requested configs explicitly set `native_1T_context=false`. Their 1T position fields describe an experimental logical target. SUN defaults to **8,192 total active tokens**, reserving 1,024 for output. Its UTF-8 byte estimate plus framing margin is conservative for the requested byte-level tokenizer family, but is not an exact tokenizer measurement; custom model templates may require additional margin. Backend context errors are reported without exposing response bodies.
+Both requested configs explicitly set **`native_1T_context=false`**. Their 1T position fields describe a logical target. The 27B model includes vision, but SUN's API interface is currently **text only**; the 2B model is text only. Related names inherit no capabilities automatically.
 
-Native API tools are **off by default**. Model templates advertise tool syntax, but that alone does not prove a server can return structured API tool calls. `/tools on` or `--tools` is an explicit operator opt-in. Changing presets disables tools again. Related model names inherit no capabilities automatically. Pinned cards, configs, template metadata and verification status are in [model research](docs/model-research.md).
+The default active budget is **8,192 tokens total**, with **1,024 reserved for output**. Input accounting uses UTF-8 bytes plus a framing margin, not an exact tokenizer; custom templates may need more margin. [Pinned sources and model research →](docs/model-research.md)
 
-## Memory and the paper
+## Architecture
 
-[SinkRec (arXiv:2606.09888)](https://arxiv.org/html/2606.09888v1) is a sequential recommendation model. Its learned conditional memory and recurrent write/read controls motivate SUN's separation of reusable evidence from the current task. A TypeScript chat client cannot reproduce its trained internal layers.
+```text
+workspace text ----> SQLite archive ----> retrieved evidence
+completed turns ---^                           |
+                                               v
+user task + recent turns ----------------> bounded prompt
+                                               |
+                                               v
+                                        streaming backend
+                                               |
+                                  answer / permitted tools
+```
 
-SUN indexes 4K-character text chunks in SQLite FTS5, deduplicates them by content hash, retains source/ordinal provenance, and diversifies a bounded retrieval shortlist. Source re-ingestion replaces that source's snapshot transactionally. Complete past turns are kept or omitted together to preserve tool-call protocol. Completed user/assistant passages are archived separately from the active transcript. Recalled text is supplied as untrusted evidence with memory IDs.
+Memory stores 4K-character chunks with content hashes and source/ordinal provenance. Retrieval selects a small, diverse evidence subset; each task step rebuilds the bounded prompt. Complete past turns stay together so tool-call sequences remain valid. Recalled material is untrusted data, not permission.
 
-This is a lexical application-level adaptation. It has no trained RVQ codebook, TDGD state modification, native recurrent-state checkpoints, embedding model, automatic fact validation, or global understanding of the full corpus. Retrieval can miss paraphrases and relevant middle-history passages. The selected prompt is a small subset of memory. See [design and paper mapping](docs/design.md) for concrete boundaries and a scale roadmap.
+[SinkRec (arXiv:2606.09888)](https://arxiv.org/html/2606.09888v1) motivates separating reusable memory from current transitions. SUN adapts that principle at the application level. It does **not** implement learned RVQ codebooks, TDGD layers or native recurrent-state checkpoints. [Design and paper mapping →](docs/design.md)
 
-## Permissions and limits
+## Boundaries
 
-The model has only `search_memory`, `read_file`, and `write_file`. Reads and ingestion stay inside the selected workspace; traversal, symlinks/junctions, hard links, secret filenames and application control directories are blocked. Writes require approval of the exact target and content every time. The destination parent must exist. File changes are made atomically after rechecking approval-time metadata. There is no shell, arbitrary code execution, model-supplied command execution, or credential acquisition.
-
-Tools are bounded: reads 16 KiB, writes 64 KiB, ingestion 8 MiB per text file, up to four tool calls per step, and six model steps by default (maximum twelve). Transport requests time out after 120 seconds. Single-user local operation is the intended deployment; file checks reduce race risk but are not a security boundary against a hostile process concurrently modifying the workspace. Review saved memory and transcripts before sharing them.
+- Only `search_memory`, `read_file` and `write_file` exist. There is no shell or arbitrary code-execution tool.
+- Reads stay inside the workspace. Traversal, links, secret filenames and control directories are blocked. Every write needs fresh approval of its exact target and content; its parent directory must exist.
+- File reads are capped at **16 KiB**, writes at **64 KiB**, and ingestion at **8 MiB per text file**. The loop allows four tool calls per step, six steps by default and twelve maximum. Transport timeout is 120 seconds.
+- This is a local, single-user prototype. File rechecks reduce race risk; they do not sandbox a hostile process modifying the workspace concurrently.
+- Lexical retrieval can miss paraphrases and relevant passages. **Actual model inference, live incremental network streaming, vision, recall quality and 1T capacity/latency remain unvalidated.**
 
 ## Verification
 
-`npm test` builds TypeScript and runs actual Node tests covering streaming mock-server connections, fragmented UTF-8/SSE and tools, cancellation, context budgeting, memory persistence/deduplication/provenance/diversity, session resume, and permission enforcement. Offline terminal smoke tests also exercise commands and the task loop. See [verification record](docs/verification.md) for the exact checks run on this build.
+```powershell
+npm test
+npm run check
+```
 
-Implementation verification did not run actual model inference, vision, paid compute, or weights downloads. See the draft PR for source publication and CI status.
+The verified implementation passed **46 tests, with zero failures or skips**. Coverage includes memory persistence, source replacement, budgets, sessions, fragmented SSE parsing, cancellation, tool permissions and terminal approval safety. Interactive terminal and extracted-release startup checks also passed.
+
+Fragmented stream tests use mocked `ReadableStream` responses; real HTTP tests cover single-write responses, request encoding and status handling. Live multipart loopback streaming stalled in this Windows environment. No actual model inference, weights downloads or paid compute was used. [Full verification record →](docs/verification.md)
+
+---
+
+**Keep the working window focused. Keep the evidence traceable.**
